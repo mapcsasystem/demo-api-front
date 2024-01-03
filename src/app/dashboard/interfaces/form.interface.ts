@@ -1,5 +1,5 @@
 export interface Form {
-  id?: string;
+  id?: number;
   name: string;
   email: string;
   age: number;
