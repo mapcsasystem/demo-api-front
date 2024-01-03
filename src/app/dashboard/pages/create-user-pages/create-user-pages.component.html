@@ -1,1 +1,96 @@
-<p>create-user works!</p>
+<div class="divCenterSizes">
+  <mat-card class="cardSizes">
+    <mat-card-header>
+      <mat-card-title>
+        <span>Registro de usuario</span>
+      </mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <mat-card-content>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Ingresa tu nombre" formControlName="name">
+           @if (getField('name')?.invalid && (getField('name')?.dirty || getField('name')?.touched)) {
+             <mat-error>
+              @if (getField('name')?.hasError('required')) {
+                <span>
+                  Campo requerido.
+                </span>
+              }
+              @if (getField('name')?.hasError('maxlength')) {
+                <span>
+                  Campo no debe ser mayor a 50.
+                </span>
+              }
+
+            </mat-error>
+           }
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Correo eléctronico</mat-label>
+              <input type="text" matInput placeholder="Correo eléctronico" formControlName="email">
+              @if (getField('email')?.invalid && (getField('email')?.dirty || getField('email')?.touched)) {
+                <mat-error>
+                  @if (getField('email')?.hasError('required')) {
+                    <span>
+                    Campo requerido.
+                    </span>
+                  }
+                  @if (getField('email')?.hasError('maxlength')) {
+                    <span>
+                      Campo no debe ser mayor a 50.
+                    </span>
+                  }
+                  @if (getField('email')?.hasError('pattern')) {
+                    <span>
+                        Correo no valido.
+                    </span>
+                  }
+
+              </mat-error>
+              }
+          </mat-form-field>
+      </p>
+      <p>
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Años</mat-label>
+            <input type="text" matInput placeholder="Correo eléctronico" formControlName="age">
+            @if (getField('age')?.invalid && (getField('age')?.dirty || getField('age')?.touched)) {
+              <mat-error>
+                @if (getField('age')?.hasError('required')) {
+                  <span>
+                  Campo requerido.
+                  </span>
+                }
+                @if (getField('age')?.hasError('min')) {
+                  <span>
+                    Campo minimo 18.
+                  </span>
+                }
+                @if (getField('age')?.hasError('max')) {
+                  <span>
+                    Campo maximo 100.
+                  </span>
+                }
+                @if (getField('age')?.hasError('pattern')) {
+                  <span>
+                      Campo no acepta letras.
+                  </span>
+                }
+
+            </mat-error>
+            }
+        </mat-form-field>
+    </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button type="submit" class="buttonSizes" color="primary" [disabled]="this.form.invalid">
+          Registrar
+        </button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

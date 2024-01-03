@@ -5,10 +5,12 @@ import { CreateUserPagesComponent } from './pages/create-user-pages/create-user-
 export const dashboardRoutes: Routes = [
   {
     path: 'create-user',
+    title: 'Crear usuario',
     component: CreateUserPagesComponent,
   },
   {
     path: 'user-list',
+    title: 'Lista de usuarios',
     component: ListUsersPagesComponent,
   },
   {
