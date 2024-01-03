@@ -9,13 +9,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { MaterialModule } from '../shared/material.module';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
   standalone: true,
-  imports: [MaterialModule, AsyncPipe],
+  imports: [
+    MaterialModule,
+    RouterOutlet,
+    AsyncPipe,
+    RouterLink,
+    RouterLinkActive,
+  ],
 })
 export class DashboardComponent {
   private breakpointObserver = inject(BreakpointObserver);
