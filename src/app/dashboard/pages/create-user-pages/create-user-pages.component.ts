@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { MaterialModule } from '../../../shared/material.module';
 import {
   AbstractControl,
@@ -8,9 +8,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Form } from '../../interfaces/form.interface';
 import { RegExpValidation } from '../../../shared/regex/regex';
 import { JsonPipe } from '@angular/common';
+import { UserService } from '../../services/user.service';
+import { FormUser } from '../../interfaces/form.interface';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-user-pages',
@@ -38,12 +40,26 @@ export class CreateUserPagesComponent {
     ]),
   });
 
+  private userService = inject(UserService);
+  private _snackBar = inject(MatSnackBar);
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
-    console.log(this.form.value);
+    this.userService.createUser(this.form.value as FormUser).subscribe({
+      next: (user) => {
+        this._snackBar.open('Usuario creado correctamente', 'Aceptar', {
+          duration: 3000,
+        });
+      },
+      error: (err) => {
+        this._snackBar.open('Error al crear usuario', 'Aceptar', {
+          duration: 3000,
+        });
+        console.log(err);
+      },
+    });
   }
 
   getField(field: string): AbstractControl<any, any> | null {

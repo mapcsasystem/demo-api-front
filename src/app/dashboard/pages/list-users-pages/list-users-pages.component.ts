@@ -1,11 +1,13 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
 import { MaterialModule } from '../../../shared/material.module';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { Form } from '../../interfaces/form.interface';
+import { FormUser } from '../../interfaces/form.interface';
+import { UserService } from '../../services/user.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-const ELEMENT_DATA: Form[] = [
+const ELEMENT_DATA: FormUser[] = [
   { id: 1, name: 'Hydrogen', age: 1.0079, email: 'H' },
   { id: 2, name: 'Helium', age: 4.0026, email: 'He' },
   { id: 3, name: 'Lithium', age: 6.941, email: 'Li' },
@@ -27,13 +29,30 @@ const ELEMENT_DATA: Form[] = [
 })
 export class ListUsersPagesComponent implements AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  displayedColumns = ['id', 'name', 'email', 'age', 'actions'];
-  dataSource = new MatTableDataSource<Form>(ELEMENT_DATA);
   @ViewChild(MatSort) sort!: MatSort;
-  // dataSource = ELEMENT_DATA;
+  displayedColumns = ['id', 'name', 'email', 'age', 'actions'];
+  dataSource = new MatTableDataSource<FormUser>();
+  user: FormUser[] = [];
+  private userService = inject(UserService);
+  private _snackBar = inject(MatSnackBar);
+
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.userService.getAllUsers().subscribe({
+      next: (users) => {
+        this.dataSource.data = users;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        this._snackBar.open('Usuarios cargados correctamente', 'Aceptar', {
+          duration: 3000,
+        });
+      },
+      error: (err) => {
+        this._snackBar.open('Error al traer usuario', 'Aceptar', {
+          duration: 3000,
+        });
+        console.log(err);
+      },
+    });
   }
 
   applyFilter(event: Event) {
