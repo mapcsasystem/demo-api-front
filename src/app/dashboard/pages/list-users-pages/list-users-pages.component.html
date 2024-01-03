@@ -40,11 +40,15 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item (click)="seeUser()">
             <mat-icon color="primary">visibility</mat-icon>
             <span>Ver</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item (click)="updateUser()">
+            <mat-icon color="accent">update</mat-icon>
+            <span>Actualizar</span>
+          </button>
+          <button mat-menu-item (click)="deleteUser()">
             <mat-icon color="warn">delete</mat-icon>
             <span>Borrar</span>
           </button>

@@ -55,7 +55,7 @@ export class ListUsersPagesComponent implements AfterViewInit {
     });
   }
 
-  applyFilter(event: Event) {
+  applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -63,4 +63,9 @@ export class ListUsersPagesComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
+  seeUser(): void {}
+
+  updateUser(): void {}
+
+  deleteUser(): void {}
 }
