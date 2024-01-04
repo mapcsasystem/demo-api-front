@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { FormUser } from '../interfaces/form.interface';
@@ -18,7 +18,7 @@ export class UserService {
 
   createUser(user: FormUser): Observable<FormUser> {
     const { age, email, name } = user;
-    const body = { email, name, age: +age };
+    const body = { email: email.trim(), name: name.trim(), age: +age };
     return this._http.post<FormUser>(`${this.baseUrl}/user/save`, body);
   }
 }

@@ -13,11 +13,12 @@ import { JsonPipe } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { FormUser } from '../../interfaces/form.interface';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-create-user-pages',
   standalone: true,
-  imports: [MaterialModule, ReactiveFormsModule, JsonPipe],
+  imports: [MaterialModule, ReactiveFormsModule, JsonPipe, RouterModule],
   templateUrl: './create-user-pages.component.html',
   styleUrl: './create-user-pages.component.css',
 })
@@ -42,6 +43,7 @@ export class CreateUserPagesComponent {
 
   private userService = inject(UserService);
   private _snackBar = inject(MatSnackBar);
+  private _router = inject(Router);
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -51,6 +53,9 @@ export class CreateUserPagesComponent {
       next: (user) => {
         this._snackBar.open('Usuario creado correctamente', 'Aceptar', {
           duration: 3000,
+        });
+        this._router.navigateByUrl('/dashboard/user-list', {
+          replaceUrl: true,
         });
       },
       error: (err) => {

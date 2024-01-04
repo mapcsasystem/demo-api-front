@@ -6,19 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { FormUser } from '../../interfaces/form.interface';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-const ELEMENT_DATA: FormUser[] = [
-  { id: 1, name: 'Hydrogen', age: 1.0079, email: 'H' },
-  { id: 2, name: 'Helium', age: 4.0026, email: 'He' },
-  { id: 3, name: 'Lithium', age: 6.941, email: 'Li' },
-  { id: 4, name: 'Beryllium', age: 9.0122, email: 'Be' },
-  { id: 5, name: 'Boron', age: 10.811, email: 'B' },
-  { id: 6, name: 'Carbon', age: 12.0107, email: 'C' },
-  { id: 7, name: 'Nitrogen', age: 14.0067, email: 'N' },
-  { id: 8, name: 'Oxygen', age: 15.9994, email: 'O' },
-  { id: 9, name: 'Fluorine', age: 18.9984, email: 'F' },
-  { id: 10, name: 'Neon', age: 20.1797, email: 'Ne' },
-];
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-list-users-pages',
@@ -63,9 +51,4 @@ export class ListUsersPagesComponent implements AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  seeUser(): void {}
-
-  updateUser(): void {}
-
-  deleteUser(): void {}
 }
